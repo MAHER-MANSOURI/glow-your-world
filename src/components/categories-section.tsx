@@ -42,8 +42,16 @@ const categories = [
 export const CategoriesSection = () => {
   return (
     <section className="relative py-24 px-6">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent" />
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/lovable-uploads/f2eb53a4-6258-4310-8164-d35f65d114b7.png')`
+        }}
+      />
+      
+      {/* Optional overlay */}
+      <div className="absolute inset-0 bg-black/10" />
       
       <div className="relative z-10 max-w-7xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-up">

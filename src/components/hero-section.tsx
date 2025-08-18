@@ -4,8 +4,16 @@ import heroImage from "@/assets/hero-lightbox.jpg";
 export const HeroSection = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background */}
-      <div className="absolute inset-0 bg-gradient-brand bg-[length:400%_400%] animate-gradient-shift" />
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/lovable-uploads/f2eb53a4-6258-4310-8164-d35f65d114b7.png')`
+        }}
+      />
+      
+      {/* Optional overlay for better text readability */}
+      <div className="absolute inset-0 bg-black/20" />
       
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
