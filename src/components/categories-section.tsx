@@ -41,9 +41,20 @@ const categories = [
 
 export const CategoriesSection = () => {
   return (
-    <section className="relative py-12 px-6">
+    <section className="relative py-24 px-6">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('/lovable-uploads/f2eb53a4-6258-4310-8164-d35f65d114b7.png')`
+        }}
+      />
+      
+      {/* Optional overlay */}
+      <div className="absolute inset-0 bg-black/10" />
+      
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="text-center mb-12 animate-fade-in-up">
+        <div className="text-center mb-16 animate-fade-in-up">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Choose Your
             <span className="block bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
