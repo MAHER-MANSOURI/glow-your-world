@@ -32,7 +32,7 @@ export const HeroSection = () => {
             <Button 
               variant="outline" 
               size="lg"
-              className="border-white/30 text-white hover:bg-white/10 font-semibold px-8 py-6 text-lg rounded-xl backdrop-blur-sm transition-all duration-300 hover:scale-105"
+              className="border-white/20 text-white hover:bg-white/10 font-semibold px-8 py-6 text-lg rounded-xl backdrop-blur-sm transition-all duration-300 hover:scale-105"
             >
               Custom Design
             </Button>
@@ -42,7 +42,7 @@ export const HeroSection = () => {
         {/* Hero Image */}
         <div className="animate-float">
           <div className="relative max-w-2xl mx-auto">
-            <div className="bg-gradient-card backdrop-blur-md rounded-3xl p-8 border border-white/20 shadow-[var(--glass-shadow)]">
+            <div className="bg-gradient-card backdrop-blur-md rounded-3xl p-8 shadow-[var(--glass-shadow)]">
               <img 
                 src={heroImage} 
                 alt="Beautiful custom lightbox" 

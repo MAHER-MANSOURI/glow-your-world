@@ -14,7 +14,7 @@ export const CategoryCard = ({ title, description, image, className, style, onCl
     <div 
       className={cn(
         "group relative overflow-hidden rounded-2xl cursor-pointer",
-        "bg-gradient-card backdrop-blur-md border border-white/20",
+        "bg-gradient-card backdrop-blur-md",
         "transition-all duration-500 hover:scale-105 hover:bg-gradient-hover",
         "shadow-[var(--glass-shadow)] hover:shadow-xl",
         "animate-scale-in",
