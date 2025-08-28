@@ -1,37 +1,97 @@
-import { Button } from "@/components/ui/button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar, faBars } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 
 export const Navigation = () => {
+  const [activeSection, setActiveSection] = useState('home');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('section');
+      let current = '';
+      
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= (sectionTop - 200)) {
+          current = section.getAttribute('id') || '';
+        }
+      });
+      
+      setActiveSection(current);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-md border-b border-white/10">
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-pink-400 to-purple-500 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">★</span>
-            </div>
-            <span className="text-white font-bold text-xl">Stellar Lightboxes</span>
-          </div>
-          
-          {/* Navigation Menu */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#" className="text-white hover:text-pink-300 transition-colors">Home</a>
-            <a href="#" className="text-white hover:text-pink-300 transition-colors">Products</a>
-            <a href="#" className="text-white hover:text-pink-300 transition-colors">Features</a>
-            <a href="#" className="text-white hover:text-pink-300 transition-colors">Reviews</a>
-            <a href="#" className="text-white hover:text-pink-300 transition-colors">Contact</a>
-          </div>
-          
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <Button variant="ghost" size="sm" className="text-white">
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            </Button>
-          </div>
-        </div>
+    <header style={{
+      padding: '20px 50px',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      position: 'fixed',
+      width: '100%',
+      top: 0,
+      zIndex: 1000,
+      background: 'rgba(0, 0, 0, 0.2)',
+      backdropFilter: 'blur(5px)'
+    }}>
+      <div style={{
+        fontSize: '24px',
+        fontWeight: 'bold',
+        display: 'flex',
+        alignItems: 'center'
+      }}>
+        <FontAwesomeIcon icon={faStar} style={{ marginRight: '10px', color: '#ff9a9e' }} />
+        Stellar Lightboxes
       </div>
-    </nav>
+      
+      <nav>
+        <ul style={{
+          display: 'flex',
+          listStyle: 'none',
+          margin: 0,
+          padding: 0
+        }}>
+          {[
+            { href: '#home', label: 'Home' },
+            { href: '#products', label: 'Products' },
+            { href: '#features', label: 'Features' },
+            { href: '#testimonials', label: 'Reviews' },
+            { href: '#contact', label: 'Contact' }
+          ].map(({ href, label }) => (
+            <li key={href} style={{ marginLeft: '30px' }}>
+              <a
+                href={href}
+                onClick={(e) => handleClick(e, href)}
+                style={{
+                  color: activeSection === href.slice(1) ? '#ff9a9e' : '#fff',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                  transition: 'color 0.3s ease'
+                }}
+          onMouseEnter={(e) => (e.target as HTMLElement).style.color = '#ff9a9e'}
+          onMouseLeave={(e) => {
+            if (activeSection !== href.slice(1)) {
+              (e.target as HTMLElement).style.color = '#fff';
+            }
+          }}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+    </header>
   );
 };

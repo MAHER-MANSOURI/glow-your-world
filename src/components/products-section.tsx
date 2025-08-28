@@ -1,54 +1,146 @@
-import { ProductCard } from "@/components/product-card";
+import { useNotification } from "@/hooks/useNotification";
 
-// Using placeholder images for now
 const products = [
   {
-    title: "Morning Star Map",
+    title: "Wedding Star Map",
     price: "$89.99",
     description: "Capture the night sky of your special day with personalized star coordinates and your wedding photo.",
-    image: "/api/placeholder/400/400",
+    image: "https://picsum.photos/seed/wedding-lightbox/400/300.jpg",
   },
   {
-    title: "Constellation",
-    price: "$149.99",
+    title: "Anniversary Constellation", 
+    price: "$79.99",
     description: "Commemorate your milestone with a custom constellation map and your favorite memory.",
-    image: "/api/placeholder/400/400",
+    image: "https://picsum.photos/seed/anniversary-lightbox/400/300.jpg",
   },
   {
     title: "Birth Night Sky",
-    price: "$179.99",
+    price: "$69.99", 
     description: "The exact star formation from the moment your child entered the world, beautifully displayed.",
-    image: "/api/placeholder/400/400",
+    image: "https://picsum.photos/seed/birth-lightbox/400/300.jpg",
   },
 ];
 
 export const ProductsSection = () => {
+  const { showNotification } = useNotification();
+
+  const handleCustomizeClick = (productName: string) => {
+    showNotification(`${productName} added to customization queue!`);
+  };
+
   return (
-    <section className="relative py-20 px-6">
-      <div className="relative z-10 max-w-7xl mx-auto">
-        {/* Section Header */}
-        <div className="text-center mb-16 animate-fade-in-up">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Our Lightbox Collection
-          </h2>
-        </div>
-        
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product, index) => (
-            <ProductCard
-              key={product.title}
-              title={product.title}
-              price={product.price}
-              description={product.description}
-              image={product.image}
-              className="hover:z-10 relative"
+    <section 
+      id="products"
+      style={{
+        padding: '100px 20px',
+        maxWidth: '1200px',
+        margin: '0 auto',
+        position: 'relative',
+        zIndex: 2
+      }}
+    >
+      <h2 style={{
+        textAlign: 'center',
+        fontSize: '3rem',
+        marginBottom: '50px',
+        position: 'relative',
+        display: 'inline-block',
+        width: '100%',
+        color: '#fff'
+      }}>
+        Our Lightbox Collection
+        <div style={{
+          content: '',
+          position: 'absolute',
+          bottom: '-10px',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '100px',
+          height: '3px',
+          background: 'linear-gradient(45deg, #ff9a9e, #fad0c4)',
+          borderRadius: '5px'
+        }} />
+      </h2>
+      
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+        gap: '30px',
+        marginTop: '50px'
+      }}>
+        {products.map((product, index) => (
+          <div 
+            key={product.title}
+            className={`floating-container ${index === 1 ? 'reverse delay-1' : index === 2 ? 'delay-2' : ''}`}
+            style={{
+              overflow: 'hidden',
+              borderRadius: '15px',
+              position: 'relative',
+              padding: 0
+            }}
+          >
+            <img 
+              src={product.image}
+              alt={product.title}
               style={{
-                animationDelay: `${index * 0.1}s`
-              } as React.CSSProperties}
+                width: '100%',
+                height: '250px',
+                objectFit: 'cover',
+                transition: 'transform 0.5s ease'
+              }}
+              onMouseEnter={(e) => (e.target as HTMLImageElement).style.transform = 'scale(1.05)'}
+              onMouseLeave={(e) => (e.target as HTMLImageElement).style.transform = 'scale(1)'}
             />
-          ))}
-        </div>
+            <div style={{ padding: '20px' }}>
+              <h3 style={{
+                fontSize: '1.5rem',
+                marginBottom: '10px',
+                color: '#fff'
+              }}>
+                {product.title}
+              </h3>
+              <p style={{
+                fontSize: '1.2rem',
+                color: '#ff9a9e',
+                fontWeight: 'bold',
+                marginBottom: '15px'
+              }}>
+                {product.price}
+              </p>
+              <p style={{
+                opacity: 0.8,
+                marginBottom: '20px',
+                color: '#fff'
+              }}>
+                {product.description}
+              </p>
+              <button
+                onClick={() => handleCustomizeClick(product.title)}
+                style={{
+                  background: 'rgba(255, 255, 255, 0.2)',
+                  color: '#fff',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  padding: '10px 20px',
+                  borderRadius: '30px',
+                  cursor: 'pointer',
+                  transition: 'all 0.3s ease',
+                  width: '100%',
+                  fontWeight: 500
+                }}
+                onMouseEnter={(e) => {
+                  (e.target as HTMLButtonElement).style.background = 'rgba(255, 255, 255, 0.3)';
+                  (e.target as HTMLButtonElement).style.transform = 'translateY(-3px)';
+                }}
+                onMouseLeave={(e) => {
+                  (e.target as HTMLButtonElement).style.background = 'rgba(255, 255, 255, 0.2)';
+                  (e.target as HTMLButtonElement).style.transform = 'translateY(0)';
+                }}
+              >
+                Customize Now
+              </button>
+            </div>
+          </div>
+        ))}
       </div>
     </section>
   );
